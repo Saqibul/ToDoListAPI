@@ -32,9 +32,11 @@ namespace ToDoListAPI.Services
         }
 
 
-        public Pizza? Get(int id)
+        public Task? GetTask(String name)
         {
-            return _pizzaRepository.Get(id);
+            IList<Task> tasks = new List<Task>();
+
+            return _.Get(name);
         }
 
         public void CreateTask(Task task)
