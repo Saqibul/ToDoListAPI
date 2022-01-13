@@ -6,57 +6,69 @@ namespace ToDoListAPI.Services
 {
     public class ToDoListService
     {
-        private readonly IToDoListRepository _personRepository;
-        private readonly IToDoListRepository _taskRepository;
-        private readonly IToDoListRepository _logRepository;
-        public ToDoListService(IToDoListRepository personRepository, IToDoListRepository taskRepository, IToDoListRepository logRepository)
+        private readonly PersonRepository _personRepository;
+        private readonly TaskRepository _taskRepository;
+        private readonly LogRepository _logRepository;
+        public ToDoListService(PersonRepository personRepository, TaskRepository taskRepository, LogRepository logRepository)
         {
             _personRepository = personRepository;
             _taskRepository = taskRepository;   
             _logRepository = logRepository;
         }
 
-        public IList<Task> GetAllTasks()
+        public IList<Task>? GetAllTasks()
         {
-            return (IList<Task>)_taskRepository.GetAll();
+            return (IList<Task>)_taskRepository.ShowAllTasks();
         }
         
         public IList<Person> GetAllPersons()
         {
-            return (IList<Person>)_personRepository.GetAll();
+            return (IList<Person>)_personRepository.ShowAllPersons();
         }
         
-        public IList<Log> GetAllLogs()
-        {
-            return (IList<Log>)_logRepository.GetAll();
-        }
+        //public IList<Log> GetAllLogs()
+        //{
+        //    return (IList<Log>)_logRepository.GetAll();
+        //}
 
 
         public Task? GetTask(String name)
+        {         
+            return _taskRepository.ShowTaskDetails(name);
+        }
+        
+        public void UpdateTask(Task task)
         {
-            IList<Task> tasks = new List<Task>();
-
-            return _.Get(name);
+            _taskRepository.UpdateTask(task);
         }
 
         public void CreateTask(Task task)
         {
-            _taskRepository.Create(task);
+            _taskRepository.CreateTask(task);
         }
 
-        public void Update(int id, Pizza pizza)
-        {
-            if (id != pizza.Id)
-            {
-                throw new ArgumentException("id didn't match with pizza id");
-            }
-            _pizzaRepository.Update(pizza);
-            return;
+        public IList<Task>? ShowTasksToDo(Person person) 
+        { 
+            return _taskRepository.ShowTasksToDo(person);
         }
 
-        public void Delete(int id)
+        public IList<Task>? ShowTasksAssigned(Person person)
+        { 
+            return _taskRepository.ShowTasksAssigned(person);
+        }
+        public void DeleteTask(Task task)
         {
-            _pizzaRepository.Delete(id);
+            _taskRepository.DeleteTask(task);
+        }
+
+        public void AddPerson(Person person) 
+        {
+            Console.WriteLine("In the Service File");
+            _personRepository.Add(person);
+        }
+        public void UpdatePerson(Person person) 
+        { 
+            _personRepository.UpdatePerson(person);
         }
     }
 }

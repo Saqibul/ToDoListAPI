@@ -2,7 +2,7 @@
 
 namespace ToDoListAPI.Repositories
 {
-    public class LogRepository : IToDoListRepository
+    public class LogRepository : ILogRepository
     {
         public void Create(Person person)
         {

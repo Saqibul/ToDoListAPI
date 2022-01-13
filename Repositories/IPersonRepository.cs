@@ -1,6 +1,11 @@
-﻿namespace ToDoListAPI.Repositories
+﻿using ToDoListAPI.Models;
+
+namespace ToDoListAPI.Repositories
 {
-    public class IPersonRepository
+    public interface IPersonRepository
     {
+        void Add(Person person);
+        IList<Person> ShowAllPersons();
+        void UpdatePerson(Person person);
     }
 }

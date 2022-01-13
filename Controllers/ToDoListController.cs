@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ToDoListAPI.Models;
 using ToDoListAPI.Repositories;
 using ToDoListAPI.Services;
+using Task = ToDoListAPI.Models.Task;
 
 namespace ToDoListAPI.Controllers
 {
@@ -13,45 +15,62 @@ namespace ToDoListAPI.Controllers
 
         public ToDoListController(IConfiguration config)
         {
-            var toDoListRepository = new PersonRepository();
-            _toDoListService = new ToDoListService(toDoListRepository);
+            var personRepository = new PersonRepository();
+            var taskRepository = new TaskRepository();
+            var logRepository = new LogRepository();
+
+            _toDoListService = new ToDoListService(personRepository,taskRepository,logRepository);
             _config = config;
+            Console.WriteLine("In the controller file");
         }
 
 
-        [HttpGet]
-        public IEnumerable<Pizza> GetAll()
+        //[HttpGet("persons")]
+        //public IEnumerable<Person>? GetAllPersons()
+        //{
+        //    return _toDoListService.GetAllPersons();
+        //}
+
+        //[HttpGet(Name = "GetTasks")]
+        //public IEnumerable<Task>? GetAllTasks()
+        //{
+        //    return _toDoListService.GetAllTasks();
+        //}
+
+        [HttpPost("createPersons")]
+        public IActionResult CreatePerson(Person person)
         {
-            return _pizzasService.GetAll();
+            _toDoListService.AddPerson(person);
+            return Ok(_toDoListService.GetAllPersons());
         }
+        
+        //[HttpPost("createTasks")]
+        //public IActionResult CreateTask(Task task)
+        //{
+        //    _toDoListService.Create(task);
+        //    return Ok(_toDoListService.GetAll());
+        //}
 
-        [HttpPost]
-        public IActionResult CreateTask(Task task)
-        {
-            _toDoListService.Create(task);
-            return Ok(_toDoListService.GetAll());
-        }
-
-        [HttpPut]
-        public IActionResult Update(int id, [FromBody] Pizza pizza)
-        {
-            try
-            {
-                _pizzasService.Update(id, pizza);
-                return Ok(_pizzasService.GetAll());
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        //[HttpPut]
+        //public IActionResult Update(int id, [FromBody] Pizza pizza)
+        //{
+        //    try
+        //    {
+        //        _pizzasService.Update(id, pizza);
+        //        return Ok(_pizzasService.GetAll());
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return BadRequest(ex.Message);
+        //    }
+        //}
 
 
-        [HttpDelete]
-        public IActionResult Delete(int id)
-        {
-            _pizzasService.Delete(id);
-            return Ok(_pizzasService.GetAll());
-        }
+        //[HttpDelete]
+        //public IActionResult Delete(int id)
+        //{
+        //    _pizzasService.Delete(id);
+        //    return Ok(_pizzasService.GetAll());
+        //}
     }
 }

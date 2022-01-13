@@ -1,30 +1,41 @@
 ﻿using ToDoListAPI.Models;
+using Task = ToDoListAPI.Models.Task;
 
 namespace ToDoListAPI.Repositories
 {
-    public class TaskRepository : IToDoListRepository
+    public class TaskRepository : ITaskRepository
     {
-        public void Create(Person person)
+        public void CreateTask(Task task)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public void DeleteTask(Task task)
         {
             throw new NotImplementedException();
         }
 
-        public Person? Get(int id)
+        public IList<Task> ShowAllTasks()
         {
             throw new NotImplementedException();
         }
 
-        public IList<Person> GetAll()
+        public Task ShowTaskDetails(string keyword)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Person person)
+        public IList<Task> ShowTasksAssigned(Person person)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<Task> ShowTasksToDo(Person person)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateTask(Task task)
         {
             throw new NotImplementedException();
         }

@@ -2,7 +2,7 @@
 
 namespace ToDoListAPI.Repositories
 {
-    public interface IToDoListRepository
+    public interface ILogRepository
     {
         IList<Person> GetAll();
         Person? Get(int id);
