@@ -8,7 +8,7 @@ namespace ToDoListAPI.Repositories
     public class ToDoListContext : DbContext
     {
         //public ToDoListContext(DbContextOptions<ToDoListContext> options) : base(options) { 
-            
+
         //}
         public virtual DbSet<Person> Persons { get; set; }
         public DbSet<Task> Tasks { get; set; }

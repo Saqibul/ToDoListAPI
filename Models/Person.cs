@@ -1,17 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ToDoListAPI.Models
 {
     public class Person
     {
-        public int Id { get; set; }
+        [Key]
+        public int PersonId { get; set; }
         public string Name { get; set; }
+        public int Age { get; set; }
 
+        [ForeignKey("TaskDescription")]
+        public string? TasksToDo { get; set; }
 
-        [NotMapped]
-        public virtual IList<Task> TasksToDo { get; set; }
-        [NotMapped]
-        public virtual IList<Task> TasksGivenOut { get; set; }
-
+        [ForeignKey("TaskId")]
+        public int TasksAssignedId { get; set; }
     }
 }
