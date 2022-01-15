@@ -7,7 +7,21 @@ namespace ToDoListAPI.Repositories
     {
         public void CreateTask(Task task)
         {
-            throw new NotImplementedException();
+            //using (var db = new ToDoListContext()) {
+            //    Console.WriteLine(db.Database.CanConnect());
+            //    Console.WriteLine(db.Tasks);
+            //    db.Tasks.Add(task);
+                
+            //    var query = from b in db.Tasks select b;
+
+            //    foreach (var item in query) { 
+            //        Console.WriteLine(item);
+            //    }
+
+            //    db.SaveChanges();
+
+                
+            //}
         }
 
         public void DeleteTask(Task task)

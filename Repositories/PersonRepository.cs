@@ -6,11 +6,12 @@ namespace ToDoListAPI.Repositories
     {
         public void Add(Person person)
         {
-            using (var db = new ToDoListContext())
-            {
-                db.Persons.Add(person);
-                db.SaveChanges();
-            }
+            //using (ToDoListContext db = new ToDoListContext())
+            //{
+            //    Console.WriteLine(person);
+            //    db.Persons.Add(person);
+            //    db.SaveChanges();
+            //}
         }
 
         public IList<Person> ShowAllPersons()

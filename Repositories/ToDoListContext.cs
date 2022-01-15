@@ -7,12 +7,18 @@ namespace ToDoListAPI.Repositories
 {
     public class ToDoListContext : DbContext
     {
-        public DbSet<Person>? Persons { get; set; }
-        public DbSet<Task>? Tasks { get; set; }
+        //public ToDoListContext(DbContextOptions<ToDoListContext> options) : base(options) { 
+            
+        //}
+        public virtual DbSet<Person> Persons { get; set; }
+        public DbSet<Task> Tasks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Test");
+            if (!optionsBuilder.IsConfigured) {
+                optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-07HBP7K;Initial Catalog=ToDoList;Integrated Security=True", builder => builder.EnableRetryOnFailure()); ;
+            }
+            
         }
 
     }

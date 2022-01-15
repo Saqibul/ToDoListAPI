@@ -1,12 +1,15 @@
-﻿namespace ToDoListAPI.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ToDoListAPI.Models
 {
     public class Task
     {
         public int Id { get; set; }
-        public string? Name { get; set; }  
+        public string Name { get; set; }  
 
-
-        public Person? AssignedBy { get; set; }
-        public Person? AssignedTo { get; set; }
+        //[ForeignKey("Person")]
+        //public int PersonId { get; set; }
+        public virtual Person? AssignedBy { get; set; }
+        public virtual Person? AssignedTo { get; set; }
     }
 }

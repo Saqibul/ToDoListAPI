@@ -43,13 +43,14 @@ namespace ToDoListAPI.Controllers
             _toDoListService.AddPerson(person);
             return Ok(_toDoListService.GetAllPersons());
         }
-        
-        //[HttpPost("createTasks")]
-        //public IActionResult CreateTask(Task task)
-        //{
-        //    _toDoListService.Create(task);
-        //    return Ok(_toDoListService.GetAll());
-        //}
+
+        [HttpPost("createTasks")]
+        public IActionResult CreateTask(Task task)
+        {
+
+            _toDoListService.CreateTask(task);
+            return Ok(_toDoListService.GetAllTasks());
+        }
 
         //[HttpPut]
         //public IActionResult Update(int id, [FromBody] Pizza pizza)
