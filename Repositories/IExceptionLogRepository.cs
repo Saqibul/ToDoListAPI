@@ -1,4 +1,6 @@
-﻿namespace ToDoListAPI.Repositories
+﻿using ToDoListAPI.Models;
+
+namespace ToDoListAPI.Repositories
 {
     public interface IExceptionLogRepository
     {
