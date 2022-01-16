@@ -25,40 +25,51 @@ namespace ToDoListAPI.Controllers
         }
 
 
-        [HttpGet("Persons")]
+        [HttpGet("Persons")] // Get all Persons
         public IEnumerable<Person>? GetAllPersons()
         {
             return _toDoListService.GetAllPersons();
         }
 
-        [HttpGet("Tasks")]
+        [HttpGet("Tasks")] // Get all Tasks
         public IEnumerable<Task>? GetAllTasks()
         {
             return _toDoListService.GetAllTasks();
         }
 
-        [HttpPost("createPersons")]
+        [HttpPost("CreatePerson")] //Create Person
         public IActionResult CreatePerson(Person person)
         {
             _toDoListService.AddPerson(person);
             return Ok(_toDoListService.GetAllPersons());
         }
 
-        [HttpPost("createTask")]
+        [HttpPost("CreateTask")] //Create Task
         public IActionResult CreateTask(Task task)
         {
-
             _toDoListService.CreateTask(task);
             return Ok(_toDoListService.GetAllTasks());
         }
 
-        [HttpDelete("DeleteTask")]
+        [HttpDelete("DeleteTask")] //Delete Task using task id
         public IActionResult DeleteTask(int i)
         {
             _toDoListService.DeleteTask(i);
             return Ok(_toDoListService.GetAllTasks());
         }
 
+        [HttpGet("GetTasksToDo")] //Get tasks to done by providing with a Person ID
+        public IEnumerable<Task>? GetTasksToDo(int id) {
+            return _toDoListService.ShowTasksToDo(id);
+            
+        }
+
+        [HttpGet("GetTasksAssigned")] //Get tasks to done by providing with a Person ID
+        public IEnumerable<Task>? GetTasksAssigned(int id)
+        {
+            return _toDoListService.ShowTasksAssigned(id);
+
+        }
         //[HttpPut]
         //public IActionResult Update(int id, [FromBody] Pizza pizza)
         //{

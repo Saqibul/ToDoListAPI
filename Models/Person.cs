@@ -10,10 +10,5 @@ namespace ToDoListAPI.Models
         public string Name { get; set; }
         public int Age { get; set; }
 
-        [ForeignKey("TaskDescription")]
-        public string? TasksToDo { get; set; }
-
-        [ForeignKey("TaskId")]
-        public int TasksAssignedId { get; set; }
     }
 }

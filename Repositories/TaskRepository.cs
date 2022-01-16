@@ -10,20 +10,47 @@ namespace ToDoListAPI.Repositories
     {
         public void CreateTask(Task task)
         {
-            using (var db = new ToDoListContext())
+            try
             {
-                db.Tasks.Add(task);
-                db.SaveChanges();
+                using (var db = new ToDoListContext())
+                {
+                    db.Tasks.Add(task);
+                    db.SaveChanges();
+                    var taskToDo = new TasksToDo {
+                        PersonId = task.assignedTo,
+                        TaskId = task.TaskId
+                    };
+                    var taskAssigned = new TasksAssigned
+                    {
+                        PersonId = task.assignedBy,
+                        TaskId = task.TaskId
+                    };
+                    db.TasksAssigned.Add(taskAssigned);
+                    db.SaveChanges();
+                    db.TasksToDos.Add(taskToDo);
+                    db.SaveChanges();
+
+                    //var result = db.Persons.SingleOrDefault(t => t.TasksAssignedId => );
+                }
+
             }
+            catch (Exception ex) { 
+                
+            }
+            
         }
 
         public void DeleteTask(int id)
         {
-            using (var db = new ToDoListContext()) {
-                var task = new Task { TaskId = id };
-                db.Entry(task).State = EntityState.Deleted;
-                db.SaveChanges();
-
+            try {
+                using (var db = new ToDoListContext()) {
+                    var task = new Task { TaskId = id };
+                    db.Entry(task).State = EntityState.Deleted;
+                    db.SaveChanges();
+                } 
+            }
+            catch(Exception ex) { 
+            
             }
         }
 
@@ -41,14 +68,24 @@ namespace ToDoListAPI.Repositories
             throw new NotImplementedException();
         }
 
-        public IList<Task> ShowTasksAssigned(Person person)
+        public IList<Task> ShowTasksAssigned(int PersonId)
         {
-            throw new NotImplementedException();
+            string sql = "SELECT DISTINCT [ToDoList].[dbo].[Tasks].TaskDescription,[ToDoList].[dbo].[Tasks].TaskId  FROM [ToDoList].[dbo].[Tasks] INNER JOIN [TasksToDos] ON [ToDoList].[dbo].[Tasks].[assignedBy] = " + PersonId;
+            Console.WriteLine(sql);
+            using (var connection = new SqlConnection("Data Source=DESKTOP-07HBP7K;Initial Catalog=ToDoList;Integrated Security=True"))
+            {
+                return connection.Query<Task>(sql).ToList();
+            }
         }
 
-        public IList<Task> ShowTasksToDo(Person person)
+        public IList<Task> ShowTasksToDo(int PersonId)
         {
-            throw new NotImplementedException();
+            string sql = "SELECT DISTINCT [ToDoList].[dbo].[Tasks].TaskDescription,[ToDoList].[dbo].[Tasks].TaskId  FROM [ToDoList].[dbo].[Tasks] INNER JOIN [TasksToDos] ON [ToDoList].[dbo].[Tasks].[assignedTo] = " + PersonId;
+            Console.WriteLine(sql);
+            using (var connection = new SqlConnection("Data Source=DESKTOP-07HBP7K;Initial Catalog=ToDoList;Integrated Security=True"))
+            {
+                return connection.Query<Task>(sql).ToList();
+            }
         }
 
         public void UpdateTask(Task task)

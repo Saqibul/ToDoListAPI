@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ToDoListAPI.Models;
 
@@ -10,9 +11,10 @@ using ToDoListAPI.Models;
 namespace ToDoListAPI.Migrations
 {
     [DbContext(typeof(ToDoListContext))]
-    partial class ToDoListContextModelSnapshot : ModelSnapshot
+    [Migration("20220116153324_renamedTheTables")]
+    partial class renamedTheTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,38 +67,22 @@ namespace ToDoListAPI.Migrations
 
             modelBuilder.Entity("ToDoListAPI.Models.TasksAssigned", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
                     b.Property<int>("PersonId")
                         .HasColumnType("int");
 
                     b.Property<int>("TaskId")
                         .HasColumnType("int");
-
-                    b.HasKey("Id");
 
                     b.ToTable("TasksAssigned");
                 });
 
             modelBuilder.Entity("ToDoListAPI.Models.TasksToDo", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
                     b.Property<int>("PersonId")
                         .HasColumnType("int");
 
                     b.Property<int>("TaskId")
                         .HasColumnType("int");
-
-                    b.HasKey("Id");
 
                     b.ToTable("TasksToDos");
                 });

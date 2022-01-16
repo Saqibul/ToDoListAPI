@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ToDoListAPI.Models;
 
@@ -10,9 +11,10 @@ using ToDoListAPI.Models;
 namespace ToDoListAPI.Migrations
 {
     [DbContext(typeof(ToDoListContext))]
-    partial class ToDoListContextModelSnapshot : ModelSnapshot
+    [Migration("20220116145314_separatedTasksToBeDone")]
+    partial class separatedTasksToBeDone
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,51 +54,29 @@ namespace ToDoListAPI.Migrations
                     b.Property<string>("TaskDescription")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("assignedBy")
-                        .HasColumnType("int");
-
-                    b.Property<int>("assignedTo")
-                        .HasColumnType("int");
-
                     b.HasKey("TaskId");
 
                     b.ToTable("Tasks");
                 });
 
-            modelBuilder.Entity("ToDoListAPI.Models.TasksAssigned", b =>
+            modelBuilder.Entity("ToDoListAPI.Models.TasksToBeDone", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
                     b.Property<int>("PersonId")
                         .HasColumnType("int");
 
                     b.Property<int>("TaskId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("TasksAssigned");
+                    b.ToTable("TasksToBeDones");
                 });
 
             modelBuilder.Entity("ToDoListAPI.Models.TasksToDo", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
                     b.Property<int>("PersonId")
                         .HasColumnType("int");
 
                     b.Property<int>("TaskId")
                         .HasColumnType("int");
-
-                    b.HasKey("Id");
 
                     b.ToTable("TasksToDos");
                 });

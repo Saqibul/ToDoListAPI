@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ToDoListAPI.Models;
-using Task = ToDoListAPI.Models.Task;
 
-namespace ToDoListAPI.Repositories
-
+namespace ToDoListAPI.Models
 {
     public class ToDoListContext : DbContext
     {
@@ -13,13 +10,16 @@ namespace ToDoListAPI.Repositories
         public virtual DbSet<Person> Persons { get; set; }
         public DbSet<Task> Tasks { get; set; }
         //public DbSet<RequestLog> RequestLogs { get; set; }
+        public DbSet<TasksAssigned> TasksAssigned { get; set; }
+        public DbSet<TasksToDo> TasksToDos { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured) {
+            if (!optionsBuilder.IsConfigured)
+            {
                 optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-07HBP7K;Initial Catalog=ToDoList;Integrated Security=True", builder => builder.EnableRetryOnFailure()); ;
             }
-            
+
         }
 
     }

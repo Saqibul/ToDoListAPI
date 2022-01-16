@@ -7,8 +7,8 @@ namespace ToDoListAPI.Repositories
     {
         void CreateTask(Task task);
         void UpdateTask(Task task);
-        IList<Task> ShowTasksToDo(Person person);
-        IList<Task> ShowTasksAssigned(Person person);
+        IList<Task> ShowTasksToDo(int id);
+        IList<Task> ShowTasksAssigned(int id);
         void DeleteTask(int id);
         Task ShowTaskDetails(string keyword);
         IList<Task> ShowAllTasks();

@@ -8,11 +8,8 @@ namespace ToDoListAPI.Models
         [Key]
         public int TaskId { get; set; }
         public string? TaskDescription { get; set; }
-
-        
-        public virtual string? AssignedTo { get; set; }//Name of the Person
-        
-        public virtual string? AssignedBy { get; set; }//Name of the Person
+        public int assignedTo { get; set; }
+        public int assignedBy { get; set; }
 
     }
 }

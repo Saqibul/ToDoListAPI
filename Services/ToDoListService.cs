@@ -25,13 +25,15 @@ namespace ToDoListAPI.Services
         {
             return (IList<Person>)_personRepository.ShowAllPersons();
         }
-        
+
         //public IList<Log> GetAllLogs()
         //{
         //    return (IList<Log>)_logRepository.GetAll();
         //}
 
-
+        public void AssignToSelf() { 
+            
+        }
         public Task? GetTask(String name)
         {         
             return _taskRepository.ShowTaskDetails(name);
@@ -47,14 +49,14 @@ namespace ToDoListAPI.Services
             _taskRepository.CreateTask(task);
         }
 
-        public IList<Task>? ShowTasksToDo(Person person) 
+        public IList<Task>? ShowTasksToDo(int id) 
         { 
-            return _taskRepository.ShowTasksToDo(person);
+            return _taskRepository.ShowTasksToDo(id);
         }
 
-        public IList<Task>? ShowTasksAssigned(Person person)
+        public IList<Task>? ShowTasksAssigned(int id)
         { 
-            return _taskRepository.ShowTasksAssigned(person);
+            return _taskRepository.ShowTasksAssigned(id);
         }
         public void DeleteTask(int id)
         {
