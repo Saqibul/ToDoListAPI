@@ -25,17 +25,17 @@ namespace ToDoListAPI.Controllers
         }
 
 
-        //[HttpGet("persons")]
-        //public IEnumerable<Person>? GetAllPersons()
-        //{
-        //    return _toDoListService.GetAllPersons();
-        //}
+        [HttpGet("Persons")]
+        public IEnumerable<Person>? GetAllPersons()
+        {
+            return _toDoListService.GetAllPersons();
+        }
 
-        //[HttpGet(Name = "GetTasks")]
-        //public IEnumerable<Task>? GetAllTasks()
-        //{
-        //    return _toDoListService.GetAllTasks();
-        //}
+        [HttpGet("Tasks")]
+        public IEnumerable<Task>? GetAllTasks()
+        {
+            return _toDoListService.GetAllTasks();
+        }
 
         [HttpPost("createPersons")]
         public IActionResult CreatePerson(Person person)
@@ -44,11 +44,18 @@ namespace ToDoListAPI.Controllers
             return Ok(_toDoListService.GetAllPersons());
         }
 
-        [HttpPost("createTasks")]
+        [HttpPost("createTask")]
         public IActionResult CreateTask(Task task)
         {
 
             _toDoListService.CreateTask(task);
+            return Ok(_toDoListService.GetAllTasks());
+        }
+
+        [HttpDelete("DeleteTask")]
+        public IActionResult DeleteTask(int i)
+        {
+            _toDoListService.DeleteTask(i);
             return Ok(_toDoListService.GetAllTasks());
         }
 

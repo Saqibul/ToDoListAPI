@@ -9,7 +9,7 @@ namespace ToDoListAPI.Repositories
         void UpdateTask(Task task);
         IList<Task> ShowTasksToDo(Person person);
         IList<Task> ShowTasksAssigned(Person person);
-        void DeleteTask(Task task);
+        void DeleteTask(int id);
         Task ShowTaskDetails(string keyword);
         IList<Task> ShowAllTasks();
     }

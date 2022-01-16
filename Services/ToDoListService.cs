@@ -56,9 +56,9 @@ namespace ToDoListAPI.Services
         { 
             return _taskRepository.ShowTasksAssigned(person);
         }
-        public void DeleteTask(Task task)
+        public void DeleteTask(int id)
         {
-            _taskRepository.DeleteTask(task);
+            _taskRepository.DeleteTask(id);
         }
 
         public void AddPerson(Person person) 

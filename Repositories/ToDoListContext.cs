@@ -12,6 +12,7 @@ namespace ToDoListAPI.Repositories
         //}
         public virtual DbSet<Person> Persons { get; set; }
         public DbSet<Task> Tasks { get; set; }
+        //public DbSet<RequestLog> RequestLogs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

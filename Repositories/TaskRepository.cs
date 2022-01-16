@@ -1,4 +1,7 @@
-﻿using ToDoListAPI.Models;
+﻿using Dapper;
+using Microsoft.EntityFrameworkCore;
+using System.Data.SqlClient;
+using ToDoListAPI.Models;
 using Task = ToDoListAPI.Models.Task;
 
 namespace ToDoListAPI.Repositories
@@ -7,31 +10,30 @@ namespace ToDoListAPI.Repositories
     {
         public void CreateTask(Task task)
         {
-            //using (var db = new ToDoListContext()) {
-            //    Console.WriteLine(db.Database.CanConnect());
-            //    Console.WriteLine(db.Tasks);
-            //    db.Tasks.Add(task);
-                
-            //    var query = from b in db.Tasks select b;
-
-            //    foreach (var item in query) { 
-            //        Console.WriteLine(item);
-            //    }
-
-            //    db.SaveChanges();
-
-                
-            //}
+            using (var db = new ToDoListContext())
+            {
+                db.Tasks.Add(task);
+                db.SaveChanges();
+            }
         }
 
-        public void DeleteTask(Task task)
+        public void DeleteTask(int id)
         {
-            throw new NotImplementedException();
+            using (var db = new ToDoListContext()) {
+                var task = new Task { TaskId = id };
+                db.Entry(task).State = EntityState.Deleted;
+                db.SaveChanges();
+
+            }
         }
 
         public IList<Task> ShowAllTasks()
         {
-            throw new NotImplementedException();
+            string sql = "SELECT * FROM[ToDoList].[dbo].[Tasks]";
+            using (var connection = new SqlConnection("Data Source=DESKTOP-07HBP7K;Initial Catalog=ToDoList;Integrated Security=True"))
+            {
+                return connection.Query<Task>(sql).ToList();
+            }
         }
 
         public Task ShowTaskDetails(string keyword)
