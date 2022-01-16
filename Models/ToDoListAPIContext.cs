@@ -9,7 +9,7 @@ namespace ToDoListAPI.Models
         //}
         public virtual DbSet<Person> Persons { get; set; }
         public DbSet<Task> Tasks { get; set; }
-        //public DbSet<RequestLog> RequestLogs { get; set; }
+        public DbSet<RequestLog> RequestLogs { get; set; }
         public DbSet<TasksAssigned> TasksAssigned { get; set; }
         public DbSet<TasksToDo> TasksToDos { get; set; }
 

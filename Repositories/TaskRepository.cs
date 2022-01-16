@@ -65,7 +65,8 @@ namespace ToDoListAPI.Repositories
 
         public IList<Task> ShowTaskDetails(string keyword)
         {
-            string sql = "SELECT [ToDoList].[dbo].[Tasks].TaskDescription FROM [ToDoList].[dbo].[Tasks] WHERE [ToDoList].[dbo].[Tasks].TaskDescription LIKE '" + keyword +"'";
+            string sql = "SELECT [ToDoList].[dbo].[Tasks].TaskDescription FROM [ToDoList].[dbo].[Tasks] WHERE [ToDoList].[dbo].[Tasks].TaskDescription LIKE '%" + keyword +"%'";
+            Console.Write(sql);
             using (var connection = new SqlConnection("Data Source=DESKTOP-07HBP7K;Initial Catalog=ToDoList;Integrated Security=True"))
             {
                 return connection.Query<Task>(sql).ToList();

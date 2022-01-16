@@ -27,11 +27,18 @@ namespace ToDoListAPI.Repositories
 
         public void UpdatePerson(Person person)
         {
-            using (ToDoListContext db = new ToDoListContext())
+            try
             {
-                //Console.WriteLine(person);
-                db.Persons.Add(person);
-                db.SaveChanges();
+                using (var db = new ToDoListContext())
+                {
+                    var oldPerson = db.Persons.Where(d => d.PersonId == person.PersonId).FirstOrDefault();
+                    oldPerson.Name = person.Name;
+                    oldPerson.Age = person.Age;
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex) { 
+            
             }
         }
     }

@@ -21,7 +21,6 @@ namespace ToDoListAPI.Controllers
 
             _toDoListService = new ToDoListService(personRepository,taskRepository,logRepository);
             _config = config;
-            Console.WriteLine("In the controller file");
         }
 
 
@@ -76,6 +75,13 @@ namespace ToDoListAPI.Controllers
         {
             _toDoListService.UpdateTask(task);
             return Ok(_toDoListService.GetAllTasks());
+        }
+
+        [HttpPatch("UpdatePerson")] //Update existing person
+        public IActionResult UpdatePerson(Person person)
+        {
+            _toDoListService.UpdatePerson(person);
+            return Ok(_toDoListService.GetAllPersons());
         }
 
         [HttpGet("GetTaskDetailsByKeyWord")] //Enter keyword and search task table for description that may contain that word
