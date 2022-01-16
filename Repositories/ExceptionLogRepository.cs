@@ -1,10 +1,15 @@
-﻿namespace ToDoListAPI.Repositories
+﻿using ToDoListAPI.Models;
+
+namespace ToDoListAPI.Repositories
 {
-    public class ExceptionLog : IExceptionLog
+    public class ExceptionLogRepository : IExceptionLogRepository
     {
-        public void Add(IExceptionLog el)
+        public void Add(ExceptionLog el)
         {
-            throw new NotImplementedException();
+            using (var db = new ToDoListContext()) { 
+                db.ExceptionLogs.Add(el);
+                db.SaveChanges();
+            }
         }
     }
 }

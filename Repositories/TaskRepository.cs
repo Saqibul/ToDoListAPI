@@ -8,6 +8,7 @@ namespace ToDoListAPI.Repositories
 {
     public class TaskRepository : ITaskRepository
     {
+        private readonly ExceptionLogRepository _exceptionLogRepository = new ExceptionLogRepository();
         public void CreateTask(Task task)
         {
             try
@@ -34,8 +35,12 @@ namespace ToDoListAPI.Repositories
                 }
 
             }
-            catch (Exception ex) { 
-                
+            catch (Exception ex) {
+                var ext = new ExceptionLog
+                {
+                    ExceptionDescription = ex.Message
+                };
+                _exceptionLogRepository.Add(ext);
             }
             
         }
