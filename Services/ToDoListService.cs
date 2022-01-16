@@ -30,14 +30,6 @@ namespace ToDoListAPI.Services
         //{
         //    return (IList<Log>)_logRepository.GetAll();
         //}
-
-        public void AssignToSelf() { 
-            
-        }
-        public Task? GetTask(String name)
-        {         
-            return _taskRepository.ShowTaskDetails(name);
-        }
         
         public void UpdateTask(Task task)
         {
@@ -65,12 +57,14 @@ namespace ToDoListAPI.Services
 
         public void AddPerson(Person person) 
         {
-            Console.WriteLine("In the Service File");
             _personRepository.Add(person);
         }
         public void UpdatePerson(Person person) 
         { 
             _personRepository.UpdatePerson(person);
+        }
+        public IList<Task> GetTaskByKeyword(string keyword) {
+            return _taskRepository.ShowTaskDetails(keyword);
         }
     }
 }

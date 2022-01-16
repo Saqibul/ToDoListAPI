@@ -10,7 +10,7 @@ namespace ToDoListAPI.Repositories
         IList<Task> ShowTasksToDo(int id);
         IList<Task> ShowTasksAssigned(int id);
         void DeleteTask(int id);
-        Task ShowTaskDetails(string keyword);
+        IList<Task> ShowTaskDetails(string keyword);
         IList<Task> ShowAllTasks();
     }
 }

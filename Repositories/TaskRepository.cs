@@ -63,15 +63,18 @@ namespace ToDoListAPI.Repositories
             }
         }
 
-        public Task ShowTaskDetails(string keyword)
+        public IList<Task> ShowTaskDetails(string keyword)
         {
-            throw new NotImplementedException();
+            string sql = "SELECT [ToDoList].[dbo].[Tasks].TaskDescription FROM [ToDoList].[dbo].[Tasks] WHERE [ToDoList].[dbo].[Tasks].TaskDescription LIKE '" + keyword +"'";
+            using (var connection = new SqlConnection("Data Source=DESKTOP-07HBP7K;Initial Catalog=ToDoList;Integrated Security=True"))
+            {
+                return connection.Query<Task>(sql).ToList();
+            }
         }
 
         public IList<Task> ShowTasksAssigned(int PersonId)
         {
             string sql = "SELECT DISTINCT [ToDoList].[dbo].[Tasks].TaskDescription,[ToDoList].[dbo].[Tasks].TaskId  FROM [ToDoList].[dbo].[Tasks] INNER JOIN [TasksToDos] ON [ToDoList].[dbo].[Tasks].[assignedBy] = " + PersonId;
-            Console.WriteLine(sql);
             using (var connection = new SqlConnection("Data Source=DESKTOP-07HBP7K;Initial Catalog=ToDoList;Integrated Security=True"))
             {
                 return connection.Query<Task>(sql).ToList();
@@ -81,7 +84,6 @@ namespace ToDoListAPI.Repositories
         public IList<Task> ShowTasksToDo(int PersonId)
         {
             string sql = "SELECT DISTINCT [ToDoList].[dbo].[Tasks].TaskDescription,[ToDoList].[dbo].[Tasks].TaskId  FROM [ToDoList].[dbo].[Tasks] INNER JOIN [TasksToDos] ON [ToDoList].[dbo].[Tasks].[assignedTo] = " + PersonId;
-            Console.WriteLine(sql);
             using (var connection = new SqlConnection("Data Source=DESKTOP-07HBP7K;Initial Catalog=ToDoList;Integrated Security=True"))
             {
                 return connection.Query<Task>(sql).ToList();
@@ -90,7 +92,27 @@ namespace ToDoListAPI.Repositories
 
         public void UpdateTask(Task task)
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (var db = new ToDoListContext())
+                {
+                    var oldTask = db.Tasks.Where(d => d.TaskId == task.TaskId).FirstOrDefault();
+                    oldTask.TaskDescription = task.TaskDescription;
+                    oldTask.assignedTo = task.assignedTo;
+                    oldTask.assignedBy = task.assignedBy;
+                    db.SaveChanges();
+                    var oldTaskToDo = db.TasksToDos.Where(d => d.TaskId == task.TaskId).FirstOrDefault();
+                    oldTaskToDo.PersonId = task.assignedTo;
+                    db.SaveChanges();
+                    var oldTaskAssigned = db.TasksAssigned.Where(d => d.TaskId == task.TaskId).FirstOrDefault(); 
+                    oldTaskAssigned.PersonId = task.assignedBy;
+                    db.SaveChanges();
+                }
+            }
+            catch (Exception ex) { 
+            
+            }
+            
         }
     }
 }

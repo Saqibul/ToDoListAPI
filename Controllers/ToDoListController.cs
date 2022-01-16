@@ -70,6 +70,20 @@ namespace ToDoListAPI.Controllers
             return _toDoListService.ShowTasksAssigned(id);
 
         }
+
+        [HttpPatch("UpdateTask")] //Update existing task
+        public IActionResult UpdateTask(Task task)
+        {
+            _toDoListService.UpdateTask(task);
+            return Ok(_toDoListService.GetAllTasks());
+        }
+
+        [HttpGet("GetTaskDetailsByKeyWord")] //Enter keyword and search task table for description that may contain that word
+        public IEnumerable<Task> GetTaskByKeyword(string keyword) {
+            return _toDoListService.GetTaskByKeyword(keyword);
+        }
+
+
         //[HttpPut]
         //public IActionResult Update(int id, [FromBody] Pizza pizza)
         //{
