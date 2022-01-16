@@ -6,13 +6,26 @@ namespace ToDoListAPI.Repositories
 {
     public class PersonRepository : IPersonRepository
     {
+        private readonly ExceptionLogRepository _exceptionLogRepository = new ExceptionLogRepository();
+
         public void Add(Person person)
         {
-            using (ToDoListContext db = new ToDoListContext())
-            {
-                db.Persons.Add(person);
-                db.SaveChanges();
+            try { 
+                using (ToDoListContext db = new ToDoListContext())
+                {
+                    db.Persons.Add(person);
+                    db.SaveChanges();
+                }
             }
+            catch (Exception ex)
+            {
+                var ext = new ExceptionLog
+                {
+                    ExceptionDescription = ex.Message
+                };
+                _exceptionLogRepository.Add(ext);
+            }
+
         }
 
         public IList<Person> ShowAllPersons()

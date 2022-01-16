@@ -12,6 +12,7 @@ namespace ToDoListAPI.Models
         public DbSet<RequestLog> RequestLogs { get; set; }
         public DbSet<TasksAssigned> TasksAssigned { get; set; }
         public DbSet<TasksToDo> TasksToDos { get; set; }
+        public DbSet<ExceptionLog> ExceptionLogs { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
